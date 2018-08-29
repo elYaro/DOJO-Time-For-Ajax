@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ajax from JSON LOCAL</title>
+</head>
+<body>
+    <button id="button1">get user</button>
+    <br><br>
+    <button id="button2">get userS</button>
+    <br><br>
+    <h3>
+        <div id="user">User:</div>
+    </h3>
+    <br><br>
+    <h3>
+        <div id="userS">Users:</div>
+    </h3>
+    
+
+
+
+    <script>
+        document.getElementById('button1').addEventListener('click', getUser);
+        document.getElementById('button2').addEventListener('click', getUserS);
+
+        function getUser(){
+            var xhr = new XMLHttpRequest;
+            xhr.open('GET', 'ajaxFromJsonLocalUser.json', true)
+            xhr.onload = function (){
+                if(this.status == 200){
+                    var data = JSON.parse(this.responseText);
+                    var output = '';
+                    output +=   '<ul>' +
+                                    '<li>id : ' + data.id + '</li>' +
+                                    '<li>name : ' + data.name + '</li>' +
+                                    '<li>surname : ' + data.surname + '</li>' +
+                                    '<li>email : ' + data.email + '</li>' +
+                                '</ul>';
+                    
+                    document.getElementById('user').innerHTML = output;
+                    }
+                }      
+           xhr.send();
+            }
+        
+
+        function getUserS(){
+            var xhr = new XMLHttpRequest;
+            xhr.open('GET', 'ajaxFromJsonLocalUsers.json', true)
+            xhr.onload = function (){
+                if(this.status == 200){
+                    var data = JSON.parse(this.responseText);
+                    output = '';
+                    for(i in data){
+                        output +=   '<ul>' +
+                                        '<li>id : ' + data[i].id + '</li>' +
+                                        '<li>name : ' + data[i].name + '</li>' +
+                                        '<li>surname : ' + data[i].surname + '</li>' +
+                                        '<li>email : ' + data[i].email + '</li>' +
+                                    '</ul>';   
+                    }
+                    
+                    document.getElementById('userS').innerHTML = output;     
+                }
+            }            
+            xhr.send();
+        }
+    
+
+        
+    </script>    
+</body>
+</html>
